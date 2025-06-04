@@ -1,0 +1,1 @@
+ROOT_API_ENDPOINT = "https://apiconnect.angelone.in"
