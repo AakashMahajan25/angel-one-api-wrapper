@@ -1,9 +1,9 @@
 import aiohttp
-from .config import HEADERS
+from .config import get_headers
 
 class AngelClient:
     def __init__(self):
-        self.headers = HEADERS
+        self.headers = get_headers()
     
     async def get(self, url, params=None):
         async with aiohttp.ClientSession() as session:
