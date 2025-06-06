@@ -29,6 +29,13 @@ def get_mac_address():
     return ':'.join(['{:02x}'.format((mac >> i) & 0xff) for i in range(40, -1, -8)])
 
 
+LOGIN_PAYLOAD = {
+    "clientcode":"Your_client_code",
+    "password":"Your_pin",
+    "totp":"enter_the_code_displayed_on_your_authenticator_app",
+}
+
+
 def get_headers():
     return {
         "Content-Type": "application/json",

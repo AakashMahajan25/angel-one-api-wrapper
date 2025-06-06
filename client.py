@@ -1,5 +1,5 @@
 import aiohttp
-from .config import get_headers
+from config import get_headers
 
 class AngelClient:
     def __init__(self):
