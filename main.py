@@ -7,7 +7,7 @@ async def main():
     
     try:
         # Call the get_profile method
-        profile = await api.get_profile()
+        profile = await api.get_historical_data()
         print("Profile:", profile)
     except Exception as e:
         print(f"Error occurred: {e}")
