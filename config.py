@@ -30,6 +30,8 @@ def get_mac_address():
     mac = uuid.getnode()
     return ':'.join(['{:02x}'.format((mac >> i) & 0xff) for i in range(40, -1, -8)])
 
+
+
 def get_headers():
     return {
         "Content-Type": "application/json",
