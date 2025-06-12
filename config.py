@@ -3,14 +3,18 @@ import os
 import uuid
 import socket
 import requests
+import pyotp
 
 load_dotenv()
 
 API_KEY = os.environ.get("API_KEY")
 SECRET_KEY = os.environ.get("SECRET_KEY")
-JWT_TOKEN = os.environ.get("JWT_TOKEN")
+CLIENT_ID = os.environ.get("CLIENT_ID")
+PASSWORD = os.environ.get("PASSWORD")
+MFA_TOKEN = os.environ.get("MFA_TOKEN")
 
 
+TOTP = pyotp.TOTP(MFA_TOKEN).now()
 
 
 def get_local_ip():
@@ -42,36 +46,11 @@ def get_headers():
         "X-PrivateKey": API_KEY,
         "X-UserType": "USER",
         "X-SourceID": "WEB",
-        "Authorization": f"Bearer {JWT_TOKEN}"
+        "Authorization": f"Bearer "
     }
 
 
 
 
-# Payloads for POST APIs
-
-LOGIN_PAYLOAD = {
-    "clientcode":"Your_client_code",
-    "password":"Your_pin",
-    "totp":"enter_the_code_displayed_on_your_authenticator_app",
-}
-
-# Other modes available are OHLC and LTP
-MARKET_DATA_PAYLOAD = { "mode": "FULL", "exchangeTokens": { "NSE": ["3045","881"], "NFO": ["58662"]} }
-
-
-TOP_GAINERS_LOSERS_PAYLOAD = {
-    "datatype":"PercOIGainers", # Type of Data you want(PercOILosers/PercOIGainers PercPriceGainers/PercPriceLosers)
-    "expirytype":"NEAR" # Expiry Type (NEAR/NEXT/FAR)
-}
-
-
-HISTORICAL_DATA_PAYLOAD = {
-     "exchange": "NSE",
-     "symboltoken": "99926000",
-     "interval": "ONE_HOUR",
-     "fromdate": "2023-09-06 11:15",
-     "todate": "2023-09-06 12:00"
-}
 
 
