@@ -4,6 +4,7 @@ import uuid
 import socket
 import requests
 import pyotp
+from endpoints import AUTHENTICATE
 
 load_dotenv()
 
@@ -16,6 +17,25 @@ MFA_TOKEN = os.environ.get("MFA_TOKEN")
 
 TOTP = pyotp.TOTP(MFA_TOKEN).now()
 
+
+LOGIN_PAYLOAD = {
+    "clientcode": CLIENT_ID,
+    "password": PASSWORD,
+    "totp": TOTP,
+}
+
+PLACE_ORDER_PAYLOAD = {
+    "variety": "NORMAL",
+    "tradingsymbol": "IDEA",          
+    "symboltoken": "121",                
+    "transactiontype": "BUY",
+    "exchange": "NSE",
+    "ordertype": "MARKET",
+    "producttype": "INTRADAY",
+    "duration": "DAY",
+    "price": "6",                    
+    "quantity": "1"
+}
 
 def get_local_ip():
     """Get local IP address"""
@@ -35,6 +55,24 @@ def get_mac_address():
     return ':'.join(['{:02x}'.format((mac >> i) & 0xff) for i in range(40, -1, -8)])
 
 
+def generate_token():
+    try:
+        payload = get_login_payload()
+        data = requests.post(AUTHENTICATE, json=payload, headers=get_headers()).json()
+        print(data['data']['jwtToken'])
+        return data['data']['jwtToken']
+
+    except Exception as e:
+        print(f"Error Generating Token: {str(e)}")
+        
+
+def get_login_payload():
+    return {
+        "clientcode": CLIENT_ID,
+        "password": PASSWORD,
+        "totp": TOTP
+    }
+
 
 def get_headers():
     return {
@@ -46,11 +84,9 @@ def get_headers():
         "X-PrivateKey": API_KEY,
         "X-UserType": "USER",
         "X-SourceID": "WEB",
-        "Authorization": f"Bearer "
+        "Authorization": f"Bearer {generate_token()}"
     }
 
 
-
-
-
+generate_token()
 

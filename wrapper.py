@@ -1,17 +1,19 @@
 from client import AngelClient
-from config import LOGIN_PAYLOAD, MARKET_DATA_PAYLOAD, HISTORICAL_DATA_PAYLOAD, TOP_GAINERS_LOSERS_PAYLOAD
+from config import LOGIN_PAYLOAD
+# , MARKET_DATA_PAYLOAD, HISTORICAL_DATA_PAYLOAD, TOP_GAINERS_LOSERS_PAYLOAD
 from endpoints import PLACE_ORDER, GET_ORDER_BOOK, GET_PROFILE, AUTHENTICATE, GET_MARKET_DATA, GET_GAINERS_LOSERS, GET_HISTORICAL_DATA
 
 class AngelAPIWrapper:
     def __init__(self):
         self.client = AngelClient()
 
-
-
     # User APIs
     async def login(self):
-        payload = LOGIN_PAYLOAD
-        return await self.client.post(AUTHENTICATE, payload)
+            payload = LOGIN_PAYLOAD
+            data = await self.client.post(AUTHENTICATE, payload)
+            if data:
+                print("Login successful")
+            return data
 
     async def get_profile(self):
         return await self.client.get(GET_PROFILE)

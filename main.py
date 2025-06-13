@@ -5,21 +5,12 @@ import asyncio
 
 # Payloads for POST APIs
 
-LOGIN_PAYLOAD = {
-    "clientcode": CLIENT_ID,
-    "password": PASSWORD,
-    "totp": TOTP,
-}
-
-# Other modes available are OHLC and LTP
-MARKET_DATA_PAYLOAD = { "mode": "FULL", "exchangeTokens": { "NSE": ["3045","881"], "NFO": ["58662"]} }
-
+MARKET_DATA_PAYLOAD = { "mode": "FULL", "exchangeTokens": { "NSE": ["3045","881"], "NFO": ["58662"]} }  # Other modes available are OHLC and LTP
 
 TOP_GAINERS_LOSERS_PAYLOAD = {
     "datatype":"PercOIGainers", # Type of Data you want(PercOILosers/PercOIGainers PercPriceGainers/PercPriceLosers)
     "expirytype":"NEAR" # Expiry Type (NEAR/NEXT/FAR)
 }
-
 
 HISTORICAL_DATA_PAYLOAD = {
      "exchange": "NSE",
@@ -36,7 +27,7 @@ async def main():
     
     try:
         # Call the get_profile method
-        profile = await api.get_historical_data()
+        profile = await api.get_profile()
         print("Profile:", profile)
     except Exception as e:
         print(f"Error occurred: {e}")
