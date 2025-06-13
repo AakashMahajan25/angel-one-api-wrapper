@@ -17,6 +17,7 @@ MFA_TOKEN = os.environ.get("MFA_TOKEN")
 
 TOTP = pyotp.TOTP(MFA_TOKEN).now()
 
+# Payloads for POST APIs
 
 LOGIN_PAYLOAD = {
     "clientcode": CLIENT_ID,
@@ -26,8 +27,8 @@ LOGIN_PAYLOAD = {
 
 PLACE_ORDER_PAYLOAD = {
     "variety": "NORMAL",
-    "tradingsymbol": "IDEA",          
-    "symboltoken": "121",                
+    "tradingsymbol": "INFY",          
+    "symboltoken": "500209",                
     "transactiontype": "BUY",
     "exchange": "NSE",
     "ordertype": "MARKET",
@@ -36,6 +37,23 @@ PLACE_ORDER_PAYLOAD = {
     "price": "6",                    
     "quantity": "1"
 }
+
+MARKET_DATA_PAYLOAD = { "mode": "FULL", "exchangeTokens": { "NSE": ["3045","881"], "NFO": ["58662"]} }  # Other modes available are OHLC and LTP
+
+TOP_GAINERS_LOSERS_PAYLOAD = {
+    "datatype":"PercOIGainers", # Type of Data you want(PercOILosers/PercOIGainers PercPriceGainers/PercPriceLosers)
+    "expirytype":"NEAR" # Expiry Type (NEAR/NEXT/FAR)
+}
+
+HISTORICAL_DATA_PAYLOAD = {
+     "exchange": "NSE",
+     "symboltoken": "99926000",
+     "interval": "ONE_HOUR",
+     "fromdate": "2023-09-06 11:15",
+     "todate": "2023-09-06 12:00"
+}
+
+
 
 def get_local_ip():
     """Get local IP address"""
