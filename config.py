@@ -59,7 +59,6 @@ def generate_token():
     try:
         payload = get_login_payload()
         data = requests.post(AUTHENTICATE, json=payload, headers=get_headers()).json()
-        print(data['data']['jwtToken'])
         return data['data']['jwtToken']
 
     except Exception as e:
@@ -84,9 +83,7 @@ def get_headers():
         "X-PrivateKey": API_KEY,
         "X-UserType": "USER",
         "X-SourceID": "WEB",
-        "Authorization": f"Bearer {generate_token()}"
+        "Authorization": ""
     }
 
-
-generate_token()
 

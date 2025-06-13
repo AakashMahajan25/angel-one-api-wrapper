@@ -1,9 +1,11 @@
 import aiohttp
-from config import get_headers
+from config import get_headers, generate_token
 
 class AngelClient:
     def __init__(self):
         self.headers = get_headers()
+        self.token = generate_token()
+        self.headers["Authorization"] = f"Bearer {self.token}"
         
     
     async def get(self, url, params=None):
